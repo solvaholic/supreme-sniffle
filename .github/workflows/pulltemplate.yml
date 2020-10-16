@@ -1,3 +1,4 @@
+---
 #
 # - Run this workflow to pull changes from the template repository.
 # 
@@ -6,6 +7,7 @@
 #   - Push the branch to this repository.
 #   - Create a pull request in this repository.
 #
+name: Sync changes from template
 
 # TODO:
 # - Switch to gh. Check https://github.com/cli/cli/issues/297 for updates.
