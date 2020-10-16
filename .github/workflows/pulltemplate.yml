@@ -14,7 +14,11 @@ name: Sync changes from template
 
 on:
   schedule:
-  - cron:  "15 * * * *"
+    - cron: "15 * * * *"
+  push:
+    # Also run when this file changes.
+    paths:
+      - .github/workflows/pulltemplate.yml
 
 env:
   BRANCH_NAME: chore/sync-from-template
