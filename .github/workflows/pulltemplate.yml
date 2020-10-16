@@ -16,14 +16,15 @@ name: Sync changes from template
 
 on:
   schedule:
-    - cron: "15 * * * *"
+    - cron: "30 * * * *"
   push:
     # Also run when this file changes.
     paths:
-      - .github/workflows/pulltemplate.yml
+      - .github/workflows/sync-from-template.yml
 
 env:
-  BRANCH_NAME: chore/sync-from-template
+  BASE_BRANCH: master
+  HEAD_BRANCH: chore/sync-from-template
   GIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
   GIT_AUTHOR_EMAIL: ${{ github.event.head_commit.author.email }}
   REPO_TEMPLATE: solvaholic/template
@@ -33,7 +34,7 @@ jobs:
   sync-from-template:
     # Do not run on the template repository itself.
     if: github.repository != 'solvaholic/template'
-    name: Pull changes from solvaholic/template
+    name: Sync changes from solvaholic/template
     runs-on: ubuntu-latest
 
     steps:
@@ -53,7 +54,7 @@ jobs:
           token: ${{ github.token }}
           path: ${{ github.repository }}
       - name: Create branch in ${{ env.THIS_REPO }}
-        run: git -C "${THIS_REPO}" checkout -b "${BRANCH_NAME}"
+        run: git -C "${THIS_REPO}" checkout -b "${HEAD_BRANCH}"
 
       # Copy files from the template onto the target clone.
       - name: Copy template contents
@@ -83,7 +84,7 @@ jobs:
 
       # Push the branch to the target repository.
       - name: Push topic branch
-        run: git -C ${THIS_REPO} push -u origin "${BRANCH_NAME}"
+        run: git -C ${THIS_REPO} push -u origin "${HEAD_BRANCH}"
 
       # Create a pull request in the target repository.
       - name: Create pull request
@@ -93,8 +94,8 @@ jobs:
         run: |
           pushd ${THIS_REPO}
           hub pull-request \
-            -b master \
-            -h "${BRANCH_NAME}" \
+            -b "${BASE_BRANCH}" \
+            -h "${HEAD_BRANCH}" \
             --no-edit \
             -m "(title) Pull updates from ${REPO_TEMPLATE}" \
             -m "(body) Pull updates from ${REPO_TEMPLATE}"
