@@ -31,7 +31,7 @@ jobs:
   sync-from-template:
     # Do not run on the template repository itself.
     if: github.repository != 'solvaholic/template'
-    name: Pull changes from solvaholic/template
+    name: Pull changes from ${{ env.REPO_TEMPLATE }}
     runs-on: ubuntu-latest
 
     steps:
@@ -58,6 +58,7 @@ jobs:
         run: |
           _files="$(find ${REPO_TEMPLATE} \
             ! -path "*/.git/*" \
+            ! -path "*/.github/workflows/*" \
             ! -name ".gitignore" \
             ! -name "README.md" \
             -type f \
