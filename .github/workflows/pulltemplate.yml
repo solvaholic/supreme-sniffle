@@ -30,7 +30,7 @@ env:
 jobs:
   sync-from-template:
     # Do not run on the template repository itself.
-    if: github.repository != solvaholic/template
+    if: github.repository != 'solvaholic/template'
     name: Pull changes from solvaholic/template
     runs-on: ubuntu-latest
 
