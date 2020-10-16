@@ -16,6 +16,7 @@ name: Sync changes from template
 
 on:
   schedule:
+    # Run on the 30th minute of each hour
     - cron: "30 * * * *"
   push:
     # Also run when this file changes.
@@ -97,6 +98,6 @@ jobs:
             -b "${BASE_BRANCH}" \
             -h "${HEAD_BRANCH}" \
             --no-edit \
-            -m "(title) Pull updates from ${REPO_TEMPLATE}" \
-            -m "(body) Pull updates from ${REPO_TEMPLATE}"
+            -m "Pull updates from ${REPO_TEMPLATE}" \
+            -m "Pull updates from ${REPO_TEMPLATE}"
           popd
