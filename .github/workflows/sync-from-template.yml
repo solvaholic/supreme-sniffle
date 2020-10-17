@@ -9,15 +9,13 @@
 #
 name: Sync changes from template
 
-# touch .
-
 # TODO:
 # - Switch to gh. Check https://github.com/cli/cli/issues/297 for updates.
 
 on:
   schedule:
     # Run on the 30th minute of each hour
-    - cron: "30 * * * *"
+    - cron: "17 5 * * 5"
   push:
     # Also run when this file changes.
     paths:
@@ -55,7 +53,9 @@ jobs:
           token: ${{ github.token }}
           path: ${{ github.repository }}
       - name: Create branch in ${{ env.THIS_REPO }}
-        run: git -C "${THIS_REPO}" checkout -b "${HEAD_BRANCH}"
+        run: |
+          git -C "${THIS_REPO}" checkout -b "${HEAD_BRANCH}"
+          git -C "${THIS_REPO}" pull origin "${HEAD_BRANCH}"
 
       # Copy files from the template onto the target clone.
       - name: Copy template contents
