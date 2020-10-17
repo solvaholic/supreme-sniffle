@@ -9,8 +9,6 @@
 #
 name: Sync changes from template
 
-# touch .
-
 # TODO:
 # - Switch to gh. Check https://github.com/cli/cli/issues/297 for updates.
 
