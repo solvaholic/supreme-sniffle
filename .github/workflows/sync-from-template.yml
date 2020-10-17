@@ -17,7 +17,7 @@ name: Sync changes from template
 on:
   schedule:
     # Run on the 30th minute of each hour
-    - cron: "*/15 * * * *"
+    - cron: '17 5 * * 5'
   push:
     # Also run when this file changes.
     paths:
@@ -83,7 +83,7 @@ jobs:
       # Commit and push changes, if there are any
       - name: Commit and push any changes
         run: |
-          [ -n "$(git diff)" ]
+          [ -n "$(git diff -C ${THIS_REPO})" ]
           git -C ${THIS_REPO} config user.name "${GIT_AUTHOR_NAME}"
           git -C ${THIS_REPO} config \
             user.email "${GIT_AUTHOR_EMAIL}"
