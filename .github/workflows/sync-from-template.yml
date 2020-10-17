@@ -55,10 +55,11 @@ jobs:
           path: ${{ github.repository }}
       - name: Create branch in ${{ env.THIS_REPO }}
         run: |
+          git -C "${THIS_REPO}" fetch origin "${HEAD_BRANCH}" || true
+          git -C "${THIS_REPO}" branch -a
           git -C "${THIS_REPO}" checkout -B "${HEAD_BRANCH}" \
             "remotes/origin/${HEAD_BRANCH}" || \
           git -C "${THIS_REPO}" checkout -b "${HEAD_BRANCH}"
-          git -C "${THIS_REPO}" branch -a
 
       # Copy files from the template onto the target clone.
       - name: Copy template contents
