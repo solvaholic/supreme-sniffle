@@ -81,7 +81,7 @@ jobs:
       # Commit and push changes, if there are any
       - name: Commit and push any changes
         run: |
-          [ -n "$(git -C ${THIS_REPO} diff)" ]
+          test -n "$(git -C ${THIS_REPO} diff)"
           git -C ${THIS_REPO} config user.name "${GIT_AUTHOR_NAME}"
           git -C ${THIS_REPO} config \
             user.email "${GIT_AUTHOR_EMAIL}"
