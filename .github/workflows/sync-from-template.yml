@@ -17,7 +17,7 @@ name: Sync changes from template
 on:
   schedule:
     # Run on the 30th minute of each hour
-    - cron: "*/10 * * * *"
+    - cron: "*/15 * * * *"
   push:
     # Also run when this file changes.
     paths:
@@ -31,14 +31,13 @@ env:
   REPO_TEMPLATE: solvaholic/template
   THIS_REPO: ${{ github.repository }}
 
-continue-on-fail: true
-
 jobs:
   sync-from-template:
     # Do not run on the template repository itself.
     if: github.repository != 'solvaholic/template'
     name: Sync changes from solvaholic/template
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       # Clone the template repository.
