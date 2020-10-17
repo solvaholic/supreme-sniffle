@@ -81,11 +81,6 @@ jobs:
       # Which thing fails?
       - name: Does this fail?
         run: |
-          git -C ${THIS_REPO} diff
-
-      # Commit and push changes, if there are any
-      - name: Commit and push any changes
-        run: |
           test -n "$(git -C ${THIS_REPO} diff)"
           git -C ${THIS_REPO} config user.name "${GIT_AUTHOR_NAME}"
           git -C ${THIS_REPO} config \
@@ -93,6 +88,11 @@ jobs:
           git -C ${THIS_REPO} add .
           git -C ${THIS_REPO} commit \
             -m "Sync from template@${{ github.sha }}"
+
+      # Commit and push changes, if there are any
+      - name: Commit and push any changes
+        run: |
+          test -n "$(git -C ${THIS_REPO} diff)"
           git -C ${THIS_REPO} push -u origin "${HEAD_BRANCH}"
 
       # Create a pull request in the target repository.
