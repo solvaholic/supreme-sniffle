@@ -78,6 +78,11 @@ jobs:
             cp "${_src}" "${_dst}"
           done
 
+      # Which thing fails?
+      - name: Does this fail?
+        run: |
+          git -C ${THIS_REPO} diff
+
       # Commit and push changes, if there are any
       - name: Commit and push any changes
         run: |
